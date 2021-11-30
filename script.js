@@ -15,7 +15,7 @@ onload = function () {
     // initialise graph options
     const options = {
         edges: {
-            labelHighlightBold: false,
+            labelHighlightBold: true,
             font: {
                 // size of weights on edges
                 size: 20,
@@ -53,6 +53,8 @@ onload = function () {
 
     function createData(){
         V = Math.floor(Math.random() * 8) + 3; // Ensures V is between 3 and 10
+        V=10;
+        src=2;
         let nodes = [];
         for(let i=1;i<=V;i++){
             nodes.push({id:i, label: cities[i-1]})
@@ -70,6 +72,7 @@ onload = function () {
         // Randomly adding new edges to graph
         // Type of bus is 0
         // Type of plane is 1
+        // type of train is 2
         for(let i=1;i<=V/2;){
 
             let n1 = Math.floor(Math.random()*V)+1;
@@ -142,8 +145,10 @@ onload = function () {
         }
 
         // Setting the new values of global variables
-        src = 1;
-        dst = V;
+        // src =  1;
+        
+        
+        // dst = V;
         curr_data = {
             nodes: nodes,
             edges: edges
@@ -151,12 +156,15 @@ onload = function () {
     }
 
     genNew.onclick = function () {
+        
+       document.getElementById("myform").reset();
+
         // Create new data and display the data
         createData();
         // create our new graph also in which edge is title
         // createDataForPrice();
         network.setData(curr_data);
-        temptext2.innerText = 'Find least time path from '+cities[src-1]+' to '+cities[dst-1];
+        temptext2.innerText = 'Find least time path from Source  to Destination';
         temptext.style.display = "inline";
         temptext2.style.display = "inline";
         container2.style.display = "none";
@@ -166,6 +174,12 @@ onload = function () {
 
     solve.onclick = function () {
         // Create graph from data and set to display
+        // src=parseInt(document.getElementById('source').value);
+        // src = src+2;
+        
+        dst=parseInt(document.getElementById('destination').value);
+        console.log(dst);
+        console.log(typeof(dst));
         temptext.style.display  = "none";
         temptext2.style.display  = "none";
         container3.style.display="none";
@@ -176,6 +190,10 @@ onload = function () {
     // solve 2 function for cost graph 
     solve2.onclick= function()
     {
+        // src=parseInt(document.getElementById('source').value);
+        // src = cities.find(document.getElementById('source').value);
+        // src = parseInt(document.getElementById('source').value);
+        dst=parseInt(document.getElementById('destination').value);
         temptext.style.display  = "none";
         temptext2.style.display  = "none";
         container3.style.display="inline";
@@ -253,12 +271,18 @@ onload = function () {
                 let from = edge['from']-1;
                 let wght = parseInt(edge['label']);
                 if(dist1[to][0]+wght+dist2[from][0] < mn_dist){
+                    // dist1 from src to [to](v) 
+                    // u-v
+                    // dist2 from dst to [from](u)
                     plane = wght;
                     p1 = to;
                     p2 = from;
                     mn_dist = dist1[to][0]+wght+dist2[from][0];
                 }
                 if(dist2[to][0]+wght+dist1[from][0] < mn_dist){
+                    // dist2 from dest to [to](v)
+                    // u-v
+                    // dist from src to [from](u)
                     plane = wght;
                     p2 = to;
                     p1 = from;
@@ -305,7 +329,7 @@ onload = function () {
         let dist1 = djikstra(graph,V,src-1);
         let dist2 = djikstra(graph,V,dst-1);
 
-        // Initialise min_dist to min distance via bus from src to dst
+        // Initialise min_dist to min distance via bus and train  from src to dst
         let mn_dist = dist1[dst-1][0];
 
         // See if plane should be used
@@ -364,13 +388,14 @@ onload = function () {
         while(dist[curr][0]!==0){
             let fm = dist[curr][1];
             if(reverse)
-                tmp_edges.push({arrows: { to: { enabled: true}},from: curr+1, to: fm+1, color: 'orange', label: String(dist[curr][0] - dist[fm][0])});
+                tmp_edges.push({arrows: { to: { enabled: true}},from: curr+1, to: fm+1, color: 'red', label: String(dist[curr][0] - dist[fm][0])});
             else
-                tmp_edges.push({arrows: { to: { enabled: true}},from: fm+1, to: curr+1, color: 'orange', label: String(dist[curr][0] - dist[fm][0])});
+                tmp_edges.push({arrows: { to: { enabled: true}},from: fm+1, to: curr+1, color: 'red', label: String(dist[curr][0] - dist[fm][0])});
             curr = fm;
         }
         return tmp_edges;
     }
 
-    genNew.click();
+    // genNew.click();
+    container.click();
 };

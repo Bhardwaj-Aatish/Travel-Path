@@ -19,11 +19,64 @@
 </head>
 
 <body>
-    <nav class="navbar navbar-light " style="font-size: 40px;">
-        Travel Path
-        <div id="overlaynav"></div>
-    </nav>
+    <nav class="navbar navbar-light container-fluid" style="font-size: 40px;">
+        <h1 class="heading">Optimised travel Path</h1>
+    
+    <div id="overlaynav"></div>
+    <div class="users input_text">
+        <span id="srce"> 
+            <a>Enter Source</a> 
+            <select id="source" style="height:34px">
+            <option value="" disabled selected="selected" hidden>Choose Source</option>
+            <option value="1">Delhi</option>
+            <option value="2">Mumbai</option>
+            <option value="3">Gujarat</option>
+            <option value="4">Goa</option>
+            <option value="5">Kanpur</option>
+            <option value="6">Jammu</option>
+            <option value="7">Hyderabad</option>
+            <option value="8">Bangalore</option>
+            <option value="9">Gangtok</option>
+            <option value="10">Meghalaya</option>
+            </select>
+        </span>
+    <span id="dest">
 
+        <a >Enter Destination</a>
+              <select id="destination" style="height:34px">
+              <option value="" disabled selected="selected" hidden>Choose Destination</option>
+              <!-- <option value="1">Jamshedpur</option>
+              <option value="2">Mumbai</option>
+              <option value="3">Chennai</option>
+              <option value="4">Goa</option>
+              <option value="5">Kanpur</option>
+              <option value="6">Pune</option>
+              <option value="7">Hyderabad</option>
+              <option value="8" default>Bangalore</option>
+              <option value="9">Delhi</option>
+              <option value="10">Kolkata</option> -->
+              <option value="1">Delhi</option>
+            <option value="2">Mumbai</option>
+            <option value="3">Gujarat</option>
+            <option value="4">Goa</option>
+            <option value="5">Kanpur</option>
+            <option value="6">Jammu</option>
+            <option value="7">Hyderabad</option>
+            <option value="8">Bangalore</option>
+            <option value="9">Gangtok</option>
+            <option value="10">Meghalaya</option>
+              </select>
+      </span>
+
+      <div class="text_box_column container-fluid">
+      <h5>Enter the states you want to consider</h5>
+      <form action="" id="myform">
+        <input type="text" id="states" class="container-fluid" placeholder="Enter the states you want to consider"  size="10" style="justify-content: baseline;">
+      </form>
+        </div>
+    </div>
+
+</nav>
     <div id="container">
         <div id="overlaynav"></div>
         <div id="mynetwork">
@@ -33,8 +86,9 @@
             </span>
             <span id="temptext" style="width: 100%; text-align: center; font-size: x-large">
                 Red link represents bus travel time : <i class="fa fa-bus" aria-hidden="true" style="color: orange"></i><br>
+                Blue link represents train travel time : <i class="fa fa-train" aria-hidden="true" style="color: rgb(31, 72, 206)"></i><br>
                 Green link represents flight travel time : <i class="fa fa-plane" aria-hidden="true" style="color: green"></i><br>
-                Click on solve to get Solution !!
+                <!-- Click on solve to get Solution !! -->
             </span>
             <div id="mynetwork2" style="display: none"></div>
             <div id="mynetwork3" style ="display: none"></div>
@@ -43,10 +97,10 @@
 
     <div class="buttons" >
         <br>
-        <button type="button" class="btn btn-danger" id="generate-graph">Get New Problem</button>
+        <button type="button" class="btn btn-danger" id="generate-graph">Generate all Paths</button>
         <br>
         <button type="button" class="btn btn-success" id="solve">Solve by time</button>
-        
+       
         <button type="button" class="btn btn-success" id="solve2">Solve by cost</button>
     </div>
 </body>
